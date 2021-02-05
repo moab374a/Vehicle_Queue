@@ -1,9 +1,9 @@
-package code;
+package Vehicle_Queue.code;
 
 import java.util.List;
 
-public class Clock {
-    private int currentClock = 0;
+public class Clock implements Subject {
+    private int currentTime = 0;
     private int endOfTime;
 
     private List<ClockObserver> observers;
@@ -13,26 +13,46 @@ public class Clock {
         this.endOfTime = endOfTime;
     }
 
+    @Override
     public void addObserver(ClockObserver clockObserver) {
         Validator.checkParam(clockObserver);
         observers.add(clockObserver);
     }
 
+    @Override
     public void removeObserver(ClockObserver observer) {
         Validator.checkParam(observer);
         observers.remove(observer);
     }
 
-    public int getCurrentTime() {
-        return currentClock;
-    }
-    public void run()
-    {
+    @Override
+    public void notifyAllObserver() {
 
+        for (ClockObserver c: observers) {
+            c.tick(currentTime);
+        }
     }
+
+    public int getCurrentTime() {
+        return currentTime;
+    }
+
+    public void run() //TODO : increasing the currentTime (in seconds) from 0 up to a time limit in seconds (endOfTime).
+    {
+        for (int i = 0; i <= endOfTime; i++) {
+
+            System.out.println(currentTime);
+            tick(this.currentTime);
+            this.currentTime += 1;
+
+            }
+    }
+
+
      private void tick (int currentTime)
      {
          Validator.checkParam(currentTime);
+
      }
 
 }
