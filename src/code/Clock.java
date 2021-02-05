@@ -1,16 +1,18 @@
-package Vehicle_Queue.code;
+package code;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Clock implements Subject {
-    private int currentTime = 0;
+    private  int currentTime = 0;
     private int endOfTime;
 
     private List<ClockObserver> observers;
 
     public Clock(int endOfTime) {
-        Validator.checkParam(endOfTime);
+        if (endOfTime <= 0) throw new IllegalArgumentException();
         this.endOfTime = endOfTime;
+        observers = new ArrayList<>();
     }
 
     @Override
@@ -37,22 +39,26 @@ public class Clock implements Subject {
         return currentTime;
     }
 
-    public void run() //TODO : increasing the currentTime (in seconds) from 0 up to a time limit in seconds (endOfTime).
+    public void run()
     {
-        for (int i = 0; i <= endOfTime; i++) {
+        currentTime = 0;
+        for (int i = 0; i < endOfTime; i++) {
 
             System.out.println(currentTime);
-            tick(this.currentTime);
             this.currentTime += 1;
+            tick(this.currentTime);
 
-            }
+        }
+
     }
 
 
      private void tick (int currentTime)
      {
          Validator.checkParam(currentTime);
+         for (ClockObserver clock : observers
+              ) {clock.tick(currentTime);
+         }
 
      }
-
 }
