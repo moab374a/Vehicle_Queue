@@ -1,4 +1,4 @@
-package Vehicle_Queue.code;
+package code;
 
 public class Bicycle extends Vehicle{
     @Override

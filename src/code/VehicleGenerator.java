@@ -1,4 +1,4 @@
-package Vehicle_Queue.code;
+package code;
 
 import java.util.HashMap;
 import java.util.Map;
